@@ -1,24 +1,32 @@
-const computerChoice = document.querySelector('#computer');
+const computerChoiceDisplay = document.querySelector('#computer');
 const userChoiceDisplay = document.querySelector('#user');
 const resultDisplay = document.querySelector('#result');
 const possibleChoices = document.querySelectorAll('button');
 
 let userChoice;
+let computerChoice;
 
 possibleChoices.forEach(possibleChoices => possibleChoices.addEventListener('click', (e) => {
     userChoice = e.target.id
     userChoiceDisplay.innerHTML = userChoice
+    generateComputerChoice()
 }));
 
-let computerSelection;
-let computerScore = 0;
-let playerScore = 0;
+function generateComputerChoice(){
+    const randomNumber = Math.floor(Math.random() * 3);
 
-const myArray = ['Rock', 'Paper', 'Scissors'];
-
-function computerPlay(){
-    return myArray[Math.floor(Math.random() * myArray.length)];
+    if(randomNumber === 1) {
+        computerChoice = 'rock';
+    }
+    if(randomNumber === 2) {
+        computerChoice = 'scissors';
+    }
+    if(computerChoice === 3) {
+        computerChoice = 'papper';
+    }
+    computerChoiceDisplay.innerHTML = computerChoice;
 }
+
 
 
 function playRound(playerSelection, computerSelection){
