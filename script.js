@@ -1,55 +1,27 @@
-const computerChoiceDisplay = document.querySelector('#computer');
-const userChoiceDisplay = document.querySelector('#user');
-const resultDisplay = document.querySelector('#result');
-const possibleChoices = document.querySelectorAll('button');
+const computerChoiceDisplay = document.createElement('h1');
+const userChoiceDisplay = document.createElement('h1');
+const resultDisplay = document.createElement('h1');
+const gameGrid = document.getElementById('game')
+gameGrid.append(computerChoiceDisplay, userChoiceDisplay, resultDisplay)
 
-let userChoice;
-let computerChoice;
-let result;
+const choices = ['rock', 'paper', 'scissors']
+let userChoice
 
-possibleChoices.forEach(possibleChoices => possibleChoices.addEventListener('click', (e) => {
+const handClick = (e) => {
     userChoice = e.target.id
-    userChoiceDisplay.innerHTML = userChoice
+    userChoiceDisplay.innerHTML = 'User choice: ' + userChoice
     generateComputerChoice()
-    getResult()
-}));
-
-function generateComputerChoice(){
-    const randomNumber = Math.floor(Math.random() * 3);
-
-    if(randomNumber === 1) {
-        computerChoice = 'rock';
-    }
-    if(randomNumber === 2) {
-        computerChoice = 'scissors';
-    }
-    if(computerChoice === 3) {
-        computerChoice = 'papper';
-    }
-    computerChoiceDisplay.innerHTML = computerChoice;
 }
 
-function getResult(){
-    if(computerChoice === userChoice){
-        result = 'its a draw!'
-    }
-    if(computerChoice === 'rock' && userChoice === 'paper'){
-        result = 'you win!'
-    }
-    if(computerChoice === 'rock' && userChoice === 'scissors'){
-        result = 'you lost!'
-    }
-    if(computerChoice === 'paper' && userChoice === 'scissors'){
-        result = 'you win!'
-    }
-    if(computerChoice === 'paper' && userChoice === 'rock'){
-        result = 'you lose!'
-    }
-    if(computerChoice === 'scissors' && userChoice === 'rock'){
-        result = 'you win!'
-    }
-    if(computerChoice === 'scissors' && userChoice === 'paper'){
-        result = 'you lose!'
-    }
-    resultDisplay.innerHTML = result
+const generateComputerChoice = () => {
+    const randomChoice = choices[Math.floor(Math.random() * choices.length)]
+    computerChoiceDisplay.innerHTML = 'Computer choice: ' + randomChoice
+}
+
+for(let i = 0; i < choices.length; i++){
+    const button = document.createElement('button')
+    button.id = choices[i]
+    button.innerHTML = choices[i]
+    button.addEventListener('click', handClick)
+    gameGrid.appendChild(button)
 }
